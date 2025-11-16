@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Vestido Floral - MC Brechó</title>
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      margin: 0;
+      background-color: #f8f8f8;
+      color: #333;
+      text-align: center;
+    }
+    header {
+      background-color: #000;
+      text-align: center;
+      padding: 20px 0;
+    }
+    header img {
+      height: 100px;
+    }
+    .produto-detalhe {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: center;
+      padding: 40px;
+      background-color: #fff;
+      margin: 40px auto;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      max-width: 900px;
+    }
+    .produto-detalhe img {
+      width: 350px;
+      height: 450px;
+      object-fit: cover;
+      border-radius: 10px;
+      margin: 20px;
+    }
+    .info {
+      max-width: 400px;
+      padding: 20px;
+      text-align: left;
+    }
+    .btn {
+      display: inline-block;
+      background-color: #000;
+      color: #fff;
+      padding: 12px 20px;
+      border-radius: 6px;
+      text-decoration: none;
+      margin-top: 20px;
+      transition: background 0.3s;
+    }
+    .btn:hover {
+      background-color: #FFD700;
+      color: #000;
+    }
+    #qr-container {
+      margin-top: 40px;
+    }
+    #qr-container img {
+      width: 250px;
+      border-radius: 8px;
+      margin-top: 10px;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <a href="index.html"><img src="logo.png" alt="Logo MC Brechó"></a>
+  </header>
+
+  <section class="produto-detalhe">
+    <img src="https://images.unsplash.com/photo-1541099649105-f69ad21f3246" alt="Vestido Floral">
+    <div class="info">
+      <h1>Vestido Floral</h1>
+      <p>Vestido leve e elegante, ideal para o verão.</p>
+      <p class="preco">R$ 49,90</p>
+      <a href="#" id="finalizarBtn" class="btn">Finalizar Compra</a>
+      <br><br>
+      <a href="index.html" style="text-decoration:none;color:#555;">← Voltar para a loja</a>
+    </div>
+  </section>
+
+  <div id="qr-container"></div>
+
+  <!-- 🔥 Verificação de login Firebase + integração com o servidor -->
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-app.js";
+    import { getAuth } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-auth.js";
+
+    // 🔧 Configuração do Firebase
+    const firebaseConfig = {
+      apiKey: "AIzaSyC9eC7lQs0OT9hQWkOUP4q5ZuJ8vRFQr54",
+      authDomain: "mc-brecho.firebaseapp.com",
+      projectId: "mc-brecho",
+      storageBucket: "mc-brecho.appspot.com",
+      messagingSenderId: "471255548659",
+      appId: "1:471255548659:web:cebdbcf01159705a6b2d86"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+
+    const finalizarBtn = document.getElementById("finalizarBtn");
+    const qrContainer = document.getElementById("qr-container");
+
+    finalizarBtn.addEventListener("click", async (event) => {
+      event.preventDefault();
+
+      const user = auth.currentUser;
+
+      if (!user) {
+        alert("⚠️ Você precisa estar logado para finalizar a compra!");
+        window.location.href = "login.html";
+        return;
+      }
+
+      try {
+        // 🔗 Envia requisição pro servidor criar o pagamento PIX
+        const res = await fetch("http://localhost:3000/create_pix", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            amount: 49.9,
+            description: "Vestido Floral - MC Brechó",
+            payer: { email: user.email || "cliente@test.com" }
+          })
+        });
+
+        const data = await res.json();
+
+        if (data.success) {
+          const tx = data.data.point_of_interaction.transaction_data;
+          qrContainer.innerHTML = `
+            <h2>📸 Escaneie o QR Code para pagar:</h2>
+            <img src="data:image/png;base64,${tx.qr_code_base64}" alt="QR Code PIX" />
+            <p><b>Copia e Cola:</b></p>
+            <textarea readonly style="width:80%;height:100px;">${tx.qr_code}</textarea>
+          `;
+        } else {
+          alert("❌ Erro ao gerar o PIX. Verifique o servidor.");
+          console.error(data.error);
+        }
+
+      } catch (err) {
+        alert("Erro de comunicação com o servidor.");
+        console.error(err);
+      }
+    });
+  </script>
+</body>
+</html>

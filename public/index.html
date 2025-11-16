@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MC Brechó - Moda Sustentável</title>
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      margin: 0;
+      background-color: #f8f8f8;
+      color: #333;
+    }
+
+    header {
+      background-color: #000;
+      color: white;
+      padding: 20px;
+      text-align: center;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    header img.logo {
+      position: absolute;
+      left: 20px;
+      width: 70px;
+      height: 70px;
+      border-radius: 50%;
+      object-fit: cover;
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 2em;
+    }
+
+    header a.login-btn {
+      position: absolute;
+      right: 20px;
+      top: 50%;
+      transform: translateY(-50%);
+      background: #ffffff;
+      color: #000;
+      padding: 10px 16px;
+      border-radius: 6px;
+      text-decoration: none;
+      font-weight: bold;
+      transition: background 0.3s;
+    }
+
+    header a.login-btn:hover {
+      background: #fff;
+      color: #000;
+    }
+
+    .produtos {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 20px;
+      padding: 40px;
+      max-width: 1200px;
+      margin: auto;
+    }
+
+    .produto {
+      background: #fff;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      text-align: center;
+      padding: 15px;
+      transition: transform 0.2s;
+    }
+
+    .produto:hover {
+      transform: translateY(-5px);
+    }
+
+    .produto img {
+      width: 100%;
+      height: 250px;
+      object-fit: cover;
+      border-radius: 10px;
+    }
+
+    .produto h3 {
+      margin: 10px 0 5px 0;
+    }
+
+    .produto p {
+      color: #555;
+      font-size: 14px;
+    }
+
+    .btn {
+      background-color: #000;
+      color: #fff;
+      padding: 10px 15px;
+      border-radius: 6px;
+      text-decoration: none;
+      display: inline-block;
+      margin-top: 10px;
+      transition: background 0.3s;
+    }
+
+    .btn:hover {
+      background-color: #FFD700;
+      color: #000;
+    }
+
+    footer {
+      background-color: #000;
+      color: #fff;
+      text-align: center;
+      padding: 20px;
+      margin-top: 40px;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <img src="https://imgur.com/jqH87Yz" class="logo">
+    <h1>MC Brechó</h1>
+    <a href="login.html" class="login-btn" id="login-btn">Login</a>
+  </header>
+
+  <section class="produtos">
+    <div class="produto"><img src="https://images.unsplash.com/photo-1541099649105-f69ad21f3246" alt="Vestido Floral"><h3>Vestido Floral</h3><p>R$ 49,90</p><a href="produto.html" class="btn">Comprar</a></div>
+    <div class="produto"><img src="https://images.unsplash.com/photo-1520975918318-3e6b1283b3e3" alt="Camisa Jeans"><h3>Camisa Jeans</h3><p>R$ 39,90</p><a href="produto.html" class="btn">Comprar</a></div>
+    <div class="produto"><img src="https://images.unsplash.com/photo-1512436991641-6745cdb1723f" alt="Jaqueta de Couro"><h3>Jaqueta de Couro</h3><p>R$ 119,90</p><a href="produto.html" class="btn">Comprar</a></div>
+
+    <!-- 🔥 +20 PRODUTOS NOVOS -->
+    <div class="produto"><img src="https://images.unsplash.com/photo-1551024601-bec78aea704b" alt="Blusa Tricot"><h3>Blusa Tricot</h3><p>R$ 59,90</p><a href="produto.html" class="btn">Comprar</a></div>
+    <div class="produto"><img src="https://images.unsplash.com/photo-1503342217505-b0a15ec3261c" alt="Saia Jeans"><h3>Saia Jeans</h3><p>R$ 44,90</p><a href="produto.html" class="btn">Comprar</a></div>
+    <div class="produto"><img src="https://images.unsplash.com/photo-1551854838-212c50b4c182" alt="Calça Cargo"><h3>Calça Cargo</h3><p>R$ 79,90</p><a href="produto.html" class="btn">Comprar</a></div>
+    <div class="produto"><img src="https://images.unsplash.com/photo-1526170375885-4d8ecf77b99f" alt="Casaco de Lã"><h3>Casaco de Lã</h3><p>R$ 129,90</p><a href="produto.html" class="btn">Comprar</a></div>
+    <div class="produto"><img src="https://images.unsplash.com/photo-1542060748-10c28b62716b" alt="Camisa Social"><h3>Camisa Social</h3><p>R$ 49,90</p><a href="produto.html" class="btn">Comprar</a></div>
+    <div class="produto"><img src="https://images.unsplash.com/photo-1521572163474-6864f9cf17ab" alt="Calça Jeans"><h3>Calça Jeans</h3><p>R$ 89,90</p><a href="produto.html" class="btn">Comprar</a></div>
+    <div class="produto"><img src="https://images.unsplash.com/photo-1534452203293-494d7ddbf7e0" alt="Calça Moletom"><h3>Calça Moletom</h3><p>R$ 69,90</p><a href="produto.html" class="btn">Comprar</a></div>
+    <div class="produto"><img src="https://images.unsplash.com/photo-1600185365986-a449bb5e73ac" alt="Suéter"><h3>Suéter</h3><p>R$ 79,90</p><a href="produto.html" class="btn">Comprar</a></div>
+    <div class="produto"><img src="https://images.unsplash.com/photo-1542060748-10c28b62716b" alt="Camisa Branca"><h3>Camisa Branca</h3><p>R$ 59,90</p><a href="produto.html" class="btn">Comprar</a></div>
+    <div class="produto"><img src="https://images.unsplash.com/photo-1503341455253-b2e723bb3dbb" alt="Terno Clássico"><h3>Terno Clássico</h3><p>R$ 199,90</p><a href="produto.html" class="btn">Comprar</a></div>
+    <div class="produto"><img src="https://images.unsplash.com/photo-1526170375885-4d8ecf77b99f" alt="Sobretudo"><h3>Sobretudo</h3><p>R$ 189,90</p><a href="produto.html" class="btn">Comprar</a></div>
+    <div class="produto"><img src="https://images.unsplash.com/photo-1551854838-212c50b4c182" alt="Calça Social"><h3>Calça Social</h3><p>R$ 89,90</p><a href="produto.html" class="btn">Comprar</a></div>
+    <div class="produto"><img src="https://images.unsplash.com/photo-1495121605193-b116b5b09a57" alt="Camiseta Estampada"><h3>Camiseta Estampada</h3><p>R$ 39,90</p><a href="produto.html" class="btn">Comprar</a></div>
+    <div class="produto"><img src="https://images.unsplash.com/photo-1519681393784-d120267933ba" alt="Vestido Preto"><h3>Vestido Preto</h3><p>R$ 69,90</p><a href="produto.html" class="btn">Comprar</a></div>
+    <div class="produto"><img src="https://images.unsplash.com/photo-1495121605193-b116b5b09a57" alt="Camiseta Básica"><h3>Camiseta Básica</h3><p>R$ 29,90</p><a href="produto.html" class="btn">Comprar</a></div>
+    <div class="produto"><img src="https://images.unsplash.com/photo-1541099649105-f69ad21f3246" alt="Saia Longa"><h3>Saia Longa</h3><p>R$ 59,90</p><a href="produto.html" class="btn">Comprar</a></div>
+    <div class="produto"><img src="https://images.unsplash.com/photo-1520975918318-3e6b1283b3e3" alt="Camisa Polo"><h3>Camisa Polo</h3><p>R$ 55,00</p><a href="produto.html" class="btn">Comprar</a></div>
+    <div class="produto"><img src="https://images.unsplash.com/photo-1503341455253-b2e723bb3dbb" alt="Blazer Masculino"><h3>Blazer Masculino</h3><p>R$ 139,90</p><a href="produto.html" class="btn">Comprar</a></div>
+    <div class="produto"><img src="https://images.unsplash.com/photo-1503341455253-b2e723bb3dbb" alt="Blazer Masculino"><h3>Blazer Masculino</h3><p>R$ 139,90</p><a href="produto.html" class="btn">Comprar</a></div>
+  </section>
+
+  <footer>
+    <p>© 2025 MC Brechó — Moda Sustentável com Estilo</p>
+  </footer>
+
+  <!-- 🔥 Script Firebase -->
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-app.js";
+    import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-auth.js";
+    import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-firestore.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyC9eC7lQs0OT9hQWkOUP4q5ZuJ8vRFQr54",
+      authDomain: "mc-brecho.firebaseapp.com",
+      projectId: "mc-brecho",
+      storageBucket: "mc-brecho.appspot.com",
+      messagingSenderId: "471255548659",
+      appId: "1:471255548659:web:cebdbcf01159705a6b2d86"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    const db = getFirestore(app);
+
+    const loginBtn = document.getElementById('login-btn');
+
+    onAuthStateChanged(auth, async (user) => {
+      if (user) {
+        const docSnap = await getDoc(doc(db, "usuarios", user.uid));
+        const nomeUsuario = docSnap.exists() ? docSnap.data().nome : "Usuário";
+
+        const userMenu = document.createElement("div");
+        userMenu.id = "userMenu";
+        userMenu.style.position = "absolute";
+        userMenu.style.right = "20px";
+        userMenu.style.top = "50%";
+        userMenu.style.transform = "translateY(-50%)";
+
+        userMenu.innerHTML = `
+          <button id="userNameBtn" style="background:#FFD700; color:#000; border:none; padding:10px 16px; border-radius:6px; cursor:pointer; font-weight:bold;">
+            ${nomeUsuario}
+          </button>
+          <div id="userDropdown" style="display:none; position:absolute; right:0; top:50px; background:#fff; border-radius:8px; box-shadow:0 4px 10px rgba(0,0,0,0.1);">
+            <button id="logoutBtn" style="border:none; background:none; padding:10px 20px; cursor:pointer; width:100%;">Sair</button>
+          </div>
+        `;
+
+        loginBtn.replaceWith(userMenu);
+
+        const userNameBtn = document.getElementById("userNameBtn");
+        const userDropdown = document.getElementById("userDropdown");
+        const logoutBtn = document.getElementById("logoutBtn");
+
+        userNameBtn.addEventListener("click", () => {
+          userDropdown.style.display = userDropdown.style.display === "none" ? "block" : "none";
+        });
+
+        logoutBtn.addEventListener("click", async () => {
+          await signOut(auth);
+          window.location.reload();
+        });
+      }
+    });
+  </script>
+
+</body>
+</html>
