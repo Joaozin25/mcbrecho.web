@@ -87,10 +87,10 @@
 
   <div id="qr-container"></div>
 
-  <!-- 🔥 Verificação de login Firebase + integração com o servidor -->
+  <!-- 🔥 Firebase + integração com o servidor -->
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-app.js";
-    import { getAuth } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-auth.js";
+    import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-auth.js";
 
     // 🔧 Configuração do Firebase
     const firebaseConfig = {
@@ -108,32 +108,35 @@
     const finalizarBtn = document.getElementById("finalizarBtn");
     const qrContainer = document.getElementById("qr-container");
 
+    let userEmail = "cliente@test.com"; // fallback caso não esteja logado
+
+    // 👤 Detecta se o usuário está logado
+    onAuthStateChanged(auth, (user) => {
+      if (user && user.email) {
+        userEmail = user.email;
+        console.log("Usuário logado:", userEmail);
+      } else {
+        console.warn("Usuário não logado, usará e-mail genérico.");
+      }
+    });
+
     finalizarBtn.addEventListener("click", async (event) => {
       event.preventDefault();
 
-      const user = auth.currentUser;
-
-      if (!user) {
-        alert("⚠️ Você precisa estar logado para finalizar a compra!");
-        window.location.href = "login.html";
-        return;
-      }
-
       try {
-        // 🔗 Envia requisição pro servidor criar o pagamento PIX
-        const res = await fetch("http://localhost:3000/create_pix", {
+        const res = await fetch("/create_pix", {  // <-- sem localhost, pois já está no mesmo servidor
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
             amount: 49.9,
             description: "Vestido Floral - MC Brechó",
-            payer: { email: user.email || "cliente@test.com" }
+            payer: { email: userEmail }
           })
         });
 
         const data = await res.json();
 
-        if (data.success) {
+        if (data.success && data.data?.point_of_interaction?.transaction_data) {
           const tx = data.data.point_of_interaction.transaction_data;
           qrContainer.innerHTML = `
             <h2>📸 Escaneie o QR Code para pagar:</h2>
@@ -142,13 +145,13 @@
             <textarea readonly style="width:80%;height:100px;">${tx.qr_code}</textarea>
           `;
         } else {
-          alert("❌ Erro ao gerar o PIX. Verifique o servidor.");
-          console.error(data.error);
+          console.error("Erro ao gerar PIX:", data);
+          alert("❌ Erro ao gerar o PIX. Verifique o servidor e as credenciais do Mercado Pago.");
         }
 
       } catch (err) {
-        alert("Erro de comunicação com o servidor.");
-        console.error(err);
+        console.error("Erro de comunicação:", err);
+        alert("❌ Erro de comunicação com o servidor. Certifique-se de que o servidor está rodando.");
       }
     });
   </script>
