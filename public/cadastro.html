@@ -13,18 +13,42 @@
     }
     header {
       background-color: #000;
-      padding: 20px 0;
+      color: white;
+      padding: 20px;
+      text-align: center;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
-    header img {
-      height: 90px;
+    header img.logo {
+      position: absolute;
+      left: 20px;
+      width: 70px;
+      height: 70px;
+      border-radius: 50%;
+      object-fit: cover;
     }
-    .form-container {
+    header h1{
+       margin: 0;
+      font-size: 2em;
+    }
+     header a.login-btn {
+      position: absolute;
+      right: 20px;
+      top: 50%;
+      transform: translateY(-50%);
+      background: #ffffff;
+      color: #000;
+      padding: 10px 16px;
+      border-radius: 6px;
+      text-decoration: none;
+      font-weight: bold;
+      transition: background 0.3s;
+    }
+    header a.login-btn:hover {
       background: #fff;
-      max-width: 400px;
-      margin: 60px auto;
-      padding: 30px;
-      border-radius: 10px;
-      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      color: #000;
     }
     input {
       width: 90%;
@@ -50,7 +74,11 @@
   </style>
 </head>
 <body>
-  <header><a href="index.html"><img src="logo.png" alt="Logo MC Brechó"></a></header>
+  <header>
+    <img src="logo.png" class="logo">
+    <h1>MC Brechó</h1>
+    <a href="login.html" class="login-btn" id="login-btn">Login</a>
+  </header>
 
   <div class="form-container">
     <h2>Criar Conta</h2>
