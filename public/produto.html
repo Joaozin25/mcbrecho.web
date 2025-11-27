@@ -30,11 +30,11 @@
       border-radius: 50%;
       object-fit: cover;
     }
-    header h1{
-       margin: 0;
+    header h1 {
+      margin: 0;
       font-size: 2em;
     }
-     header a.login-btn {
+    header a.login-btn {
       position: absolute;
       right: 20px;
       top: 50%;
@@ -46,10 +46,6 @@
       text-decoration: none;
       font-weight: bold;
       transition: background 0.3s;
-    }
-    header a.login-btn:hover {
-      background: #fff;
-      color: #000;
     }
     .produto-detalhe {
       display: flex;
@@ -99,12 +95,12 @@
     }
   </style>
 </head>
+
 <body>
+
   <header>
     <img src="logo.png" class="logo">
     <h1>MC Brechó</h1>
-    <a href="login.html" class="login-btn" id="login-btn">Login</a>
-  </header>
   </header>
 
   <section class="produto-detalhe">
@@ -121,12 +117,12 @@
 
   <div id="qr-container"></div>
 
-  <!-- 🔥 Firebase + integração com o servidor -->
+  <!-- Firebase + integração PIX -->
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-app.js";
     import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-auth.js";
 
-    // 🔧 Configuração do Firebase
+    // Configuração Firebase
     const firebaseConfig = {
       apiKey: "AIzaSyC9eC7lQs0OT9hQWkOUP4q5ZuJ8vRFQr54",
       authDomain: "mc-brecho.firebaseapp.com",
@@ -142,15 +138,11 @@
     const finalizarBtn = document.getElementById("finalizarBtn");
     const qrContainer = document.getElementById("qr-container");
 
-    let userEmail = "cliente@test.com"; // fallback caso não esteja logado
+    let userEmail = "cliente@test.com"; // caso não esteja logado
 
-    // 👤 Detecta se o usuário está logado
     onAuthStateChanged(auth, (user) => {
       if (user && user.email) {
         userEmail = user.email;
-        console.log("Usuário logado:", userEmail);
-      } else {
-        console.warn("Usuário não logado, usará e-mail genérico.");
       }
     });
 
@@ -158,7 +150,7 @@
       event.preventDefault();
 
       try {
-        const res = await fetch("/create_pix", {  // <-- sem localhost, pois já está no mesmo servidor
+        const res = await fetch("/create_pix", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
@@ -172,6 +164,7 @@
 
         if (data.success && data.data?.point_of_interaction?.transaction_data) {
           const tx = data.data.point_of_interaction.transaction_data;
+
           qrContainer.innerHTML = `
             <h2>📸 Escaneie o QR Code para pagar:</h2>
             <img src="data:image/png;base64,${tx.qr_code_base64}" alt="QR Code PIX" />
@@ -179,13 +172,13 @@
             <textarea readonly style="width:80%;height:100px;">${tx.qr_code}</textarea>
           `;
         } else {
-          console.error("Erro ao gerar PIX:", data);
-          alert("❌ Erro ao gerar o PIX. Verifique o servidor e as credenciais do Mercado Pago.");
+          alert("❌ Erro ao gerar o PIX.");
+          console.log(data);
         }
 
       } catch (err) {
-        console.error("Erro de comunicação:", err);
-        alert("❌ Erro de comunicação com o servidor. Certifique-se de que o servidor está rodando.");
+        alert("❌ Erro de comunicação com o servidor.");
+        console.error(err);
       }
     });
   </script>
