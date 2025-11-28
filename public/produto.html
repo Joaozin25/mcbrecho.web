@@ -150,7 +150,7 @@
       event.preventDefault();
 
       try {
-        const res = await fetch("/create_pix", {
+        const res = await fetch("/api/create_pix", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
