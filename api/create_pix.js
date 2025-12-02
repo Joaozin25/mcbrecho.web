@@ -4,7 +4,7 @@ export default async function handler(req, res) {
   }
 
   try {
-    const { amount, description, payer } = req.body;
+    const { amount, description, email } = req.body;
 
     const MP_ACCESS_TOKEN = process.env.MP_ACCESS_TOKEN;
 
@@ -16,21 +16,23 @@ export default async function handler(req, res) {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        "Authorization": `Bearer ${MP_ACCESS_TOKEN}`
+        Authorization: `Bearer ${MP_ACCESS_TOKEN}`
       },
       body: JSON.stringify({
         transaction_amount: Number(amount),
         description,
         payment_method_id: "pix",
-        payer
+        payer: {
+          email: email || "joaovictor.jvfc2509@gmail.com"
+        }
       })
     });
 
     const data = await response.json();
 
-    if (data.status === 400 || data.status === 401) {
+    if (!response.ok) {
       console.log("❌ Erro Mercado Pago:", data);
-      return res.status(500).json({ error: "Erro ao criar pagamento PIX" });
+      return res.status(500).json({ error: "Erro ao criar pagamento PIX", details: data });
     }
 
     return res.status(200).json({
